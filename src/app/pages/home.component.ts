@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'app-home-page',
@@ -6,4 +6,6 @@ import { Component } from '@angular/core';
     <p class="tw-text-xl">Home</p>
   `,
 })
-export default class HomePageComponent {}
+export default class HomePageComponent {
+  @HostBinding('class') className = 'tw-bg-blue-400';
+}

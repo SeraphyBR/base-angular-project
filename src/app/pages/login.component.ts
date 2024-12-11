@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { Router } from '@angular/router';
 import AuthService from '../services/auth.service';
 
 @Component({
@@ -27,16 +28,20 @@ import AuthService from '../services/auth.service';
           <button mat-flat-button color="primary" type="submit">Login</button>
           <button mat-stroked-button color="accent" type="button">Registrar</button>
         </div>
+
+        <div *ngIf="errorMessage" class="tw-mt-2 tw-text-red-500">{{ errorMessage }}</div>
       </form>
     </mat-card>
   `,
 })
 export default class LoginPageComponent {
   @HostBinding('class') className = 'tw-flex tw-justify-center tw-items-center tw-h-screen tw-bg-green-800';
+  errorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
+    private router: Router,
   ) {}
 
   protected loginForm = this.fb.group({
@@ -50,10 +55,10 @@ export default class LoginPageComponent {
       const user = this.auth.login(value.username!, value.password!);
       if (user) {
         console.log('Login successful', user);
-        // Redirect to home or another page
+        this.router.navigate(['/home']);
       } else {
         console.log('Login failed');
-        // Show error message to the user
+        this.errorMessage = 'Verifique se o nome de usuário e senha estão corretos';
       }
     }
   }
