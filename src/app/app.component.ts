@@ -6,6 +6,7 @@ import { RouterOutlet } from '@angular/router';
   standalone: true,
   imports: [RouterOutlet],
   template: `
+    <p class="tw-text-xl">OI</p>
     <router-outlet></router-outlet>
   `,
 })
