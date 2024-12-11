@@ -2,13 +2,12 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
+  selector: 'app-base-page',
   imports: [RouterOutlet],
   template: `
+    <p class="tw-text-xl">Base</p>
+
     <router-outlet></router-outlet>
   `,
 })
-export class AppComponent {
-  title = 'base-angular-project';
-}
+export default class BasePageComponent {}
