@@ -5,8 +5,6 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-base-page',
   imports: [RouterOutlet],
   template: `
-    <p class="tw-text-xl">Base</p>
-
     <router-outlet></router-outlet>
   `,
 })
