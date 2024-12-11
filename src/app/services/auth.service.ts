@@ -8,12 +8,13 @@ const USERS_KEY = 'users';
   providedIn: 'root',
 })
 export default class AuthService {
-  private currentUser: User | undefined;
-
   public login(username: string, password: string): User | undefined {
     const users = this.getUsers();
     const user = users.find((u) => u.username === username && u.password === password);
-    this.currentUser = user;
+
+    if (user) {
+      localStorage.setItem('currentUser', JSON.stringify(user));
+    }
 
     return user;
   }
@@ -34,8 +35,13 @@ export default class AuthService {
     return usersJson ? JSON.parse(usersJson) : [];
   }
 
-  public getLoggedUser() {
-    return this.currentUser;
+  public getLoggedUser(): User | undefined {
+    const storedUser = localStorage.getItem('currentUser');
+    return storedUser ? JSON.parse(storedUser) : undefined;
+  }
+
+  public logout(): void {
+    localStorage.removeItem('currentUser');
   }
 }
 
