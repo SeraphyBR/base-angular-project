@@ -5,12 +5,20 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import AuthService from '../services/auth.service';
 
 @Component({
   selector: 'app-login-page',
-  imports: [MatCardModule, MatFormFieldModule, CommonModule, MatInputModule, MatButtonModule, ReactiveFormsModule],
+  imports: [
+    MatCardModule,
+    MatFormFieldModule,
+    CommonModule,
+    MatInputModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    RouterModule,
+  ],
   template: `
     <mat-card class="tw-min-w-80 tw-rounded tw-p-6">
       <form class="tw-flex tw-flex-col tw-gap-1" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -26,7 +34,7 @@ import AuthService from '../services/auth.service';
 
         <div class="tw-flex tw-flex-row tw-justify-between tw-gap-1">
           <button mat-flat-button color="primary" type="submit">Login</button>
-          <button mat-stroked-button color="accent" type="button">Registrar</button>
+          <button mat-stroked-button color="accent" type="button" [routerLink]="['/register']">Registrar</button>
         </div>
 
         <div *ngIf="errorMessage" class="tw-mt-2 tw-text-red-500">{{ errorMessage }}</div>
@@ -36,7 +44,7 @@ import AuthService from '../services/auth.service';
 })
 export default class LoginPageComponent {
   @HostBinding('class') className = 'tw-flex tw-justify-center tw-items-center tw-h-screen tw-bg-green-800';
-  errorMessage: string | null = null;
+  protected errorMessage?: string;
 
   constructor(
     private fb: FormBuilder,

@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import BasePageComponent from './pages/base.component';
 import HomePageComponent from './pages/home.component';
 import LoginPageComponent from './pages/login.component';
+import RegistrationPageComponent from './pages/registration.component';
 import { isLoggedGuard } from './services/auth.service';
 
 export const routes: Routes = [
@@ -10,6 +11,7 @@ export const routes: Routes = [
     component: BasePageComponent,
     children: [
       { path: 'login', component: LoginPageComponent },
+      { path: 'register', component: RegistrationPageComponent },
       { path: 'home', component: HomePageComponent, canActivate: [isLoggedGuard] },
       { path: '**', redirectTo: '/home', pathMatch: 'full' },
     ],
