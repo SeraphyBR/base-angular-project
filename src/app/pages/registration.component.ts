@@ -58,7 +58,7 @@ import AuthService from '../services/auth.service';
   `,
 })
 export default class RegistrationPageComponent {
-  @HostBinding('class') className = 'tw-flex tw-justify-center tw-items-center tw-h-screen tw-bg-green-800';
+  @HostBinding('class') className = 'tw-flex tw-justify-center tw-items-center tw-h-screen tw-bg-orange-800';
 
   protected errorMessage?: string;
 
@@ -76,10 +76,12 @@ export default class RegistrationPageComponent {
     password: ['', Validators.required],
   });
 
-  onSubmit() {
-    if (this.registrationForm.valid) {
-      const value = this.registrationForm.getRawValue();
-      const user = this.auth.signup({
+  protected async onSubmit() {
+    if (!this.registrationForm.valid) return;
+    const value = this.registrationForm.getRawValue();
+
+    try {
+      const user = await this.auth.signup({
         fullname: value.fullname!,
         email: value.email!,
         username: value.username!,
@@ -88,13 +90,11 @@ export default class RegistrationPageComponent {
         password: value.password!,
       });
 
-      if (user) {
-        console.log('Registration successful', user);
-        this.router.navigate(['/login']);
-      } else {
-        console.log('Registration failed');
-        this.errorMessage = 'Erro ao registrar. Tente novamente.';
-      }
+      console.log('Registration successful', user);
+      this.router.navigate(['/login']);
+    } catch {
+      console.log('Registration failed');
+      this.errorMessage = 'Erro ao registrar. Tente novamente.';
     }
   }
 }

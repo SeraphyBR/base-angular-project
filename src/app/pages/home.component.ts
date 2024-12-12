@@ -28,8 +28,8 @@ export default class HomePageComponent {
     this.username = user ? user.fullname : 'Visitante';
   }
 
-  protected logout() {
-    this.auth.logout();
+  protected async logout() {
+    await this.auth.logout();
     this.router.navigate(['/login']);
   }
 }

@@ -57,17 +57,18 @@ export default class LoginPageComponent {
     password: ['', Validators.required],
   });
 
-  onSubmit() {
-    if (this.loginForm.valid) {
-      const value = this.loginForm.getRawValue();
-      const user = this.auth.login(value.username!, value.password!);
-      if (user) {
-        console.log('Login successful', user);
-        this.router.navigate(['/home']);
-      } else {
-        console.log('Login failed');
-        this.errorMessage = 'Verifique se o nome de usuário e senha estão corretos';
-      }
+  protected async onSubmit() {
+    if (!this.loginForm.valid) return;
+
+    const value = this.loginForm.getRawValue();
+    try {
+      const user = await this.auth.login(value.username!, value.password!);
+
+      console.log('Login successful', user);
+      this.router.navigate(['/home']);
+    } catch {
+      console.log('Login failed');
+      this.errorMessage = 'Verifique se o nome de usuário e senha estão corretos';
     }
   }
 }

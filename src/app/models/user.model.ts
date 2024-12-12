@@ -6,4 +6,6 @@ export type User = {
   createdAt: string;
 };
 
+export type UserWithPassword = User & { password: string };
+
 export default User;
